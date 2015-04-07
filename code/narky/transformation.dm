@@ -226,7 +226,7 @@
 			if("help")
 				if (health > 0)
 					for(var/mob/O in viewers(src, null))
-						if ((O.client && !( O.blinded )))
+						if ((O.client && !( O.eye_blind )))
 							O.show_message("\blue [M] hugs [src]'s egg.")
 
 			if("grab")
@@ -244,12 +244,12 @@
 				LAssailant = M
 
 				for(var/mob/O in viewers(src, null))
-					if ((O.client && !( O.blinded )))
+					if ((O.client && !( O.eye_blind )))
 						O.show_message(text("\red [] has grabbed [] passively!", M, src), 1)
 
 			if("harm", "disarm")
 				for(var/mob/O in viewers(src, null))
-					if ((O.client && !( O.blinded )))
+					if ((O.client && !( O.eye_blind )))
 						O.show_message("\red [M] taps [src]'s eggshell!")
 
 		return

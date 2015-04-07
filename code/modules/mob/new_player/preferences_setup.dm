@@ -41,6 +41,7 @@
 	var/g = "m"
 	if(gender == FEMALE)	g = "f"
 
+	var/mutant_race=pref_species.id
 	if(pref_species.id == "human" || !config.mutant_races)
 		preview_icon = new /icon('icons/mob/human.dmi', "[skin_tone]_[g]_s")
 	else
@@ -369,6 +370,46 @@
 	preview_icon.Blend(eyes_s, ICON_OVERLAY)
 	if(clothes_s)
 		preview_icon.Blend(clothes_s, ICON_OVERLAY)
+
+	//Wings!
+	if(mutant_wing&&mutant_wing!="none")
+		var/icon/wing_s = new/icon("icon" = 'icons/mob/wing.dmi', "icon_state" = "[mutant_wing]")
+		wing_s.Blend("#[wingcolor]", ICON_MULTIPLY)
+		preview_icon.Blend(wing_s, ICON_OVERLAY)
+	//Tail!
+	var/icon/chk=new/icon('icons/mob/tail.dmi')
+	var/list/available_states=chk.IconStates()
+	if(mutant_race!="human"&&kpcode_hastail(mutant_race))
+		var/icon/tail = new/icon("icon" = 'icons/mob/tail.dmi', "icon_state" = "[mutant_race]")
+		if(special_color[1]&&available_states.Find("[mutant_race]_h") && !available_states.Find("[mutant_race]_1"))
+			var/icon/sp_tail = new/icon("icon" = 'icons/mob/tail.dmi', "icon_state" = "[mutant_race]_h")
+			sp_tail.Blend("#[special_color[1]]", ICON_MULTIPLY)
+			tail.Blend(sp_tail,ICON_OVERLAY)
+		if(special_color[1]&&available_states.Find("[mutant_race]_1"))
+			var/icon/sp_tail = new/icon("icon" = 'icons/mob/tail.dmi', "icon_state" = "[mutant_race]_1")
+			sp_tail.Blend("#[special_color[1]]", ICON_MULTIPLY)
+			tail.Blend(sp_tail,ICON_OVERLAY)
+		if(special_color[2]&&available_states.Find("[mutant_race]_2"))
+			var/icon/sp_tail = new/icon("icon" = 'icons/mob/tail.dmi', "icon_state" = "[mutant_race]_2")
+			sp_tail.Blend("#[special_color[2]]", ICON_MULTIPLY)
+			tail.Blend(sp_tail,ICON_OVERLAY)
+		if(special_color[3]&&available_states.Find("[mutant_race]_3"))
+			var/icon/sp_tail = new/icon("icon" = 'icons/mob/tail.dmi', "icon_state" = "[mutant_race]_3")
+			sp_tail.Blend("#[special_color[3]]", ICON_MULTIPLY)
+			tail.Blend(sp_tail,ICON_OVERLAY)
+		tail.Shift(NORTH,kpcode_tail_offset(mutant_race))
+		preview_icon.Blend(tail, ICON_OVERLAY)
+	else
+		if(mutant_race=="human"&&mutant_tail!="none"&&kpcode_hastail(mutant_tail))
+			var/tail_name=kpcode_hastail(mutant_tail)
+			var/icon/tail = new/icon("icon" = 'icons/mob/tail.dmi', "icon_state" = "[tail_name]")
+			if(available_states.Find("[mutant_race]_h"))
+				var/icon/sp_tail = new/icon("icon" = 'icons/mob/tail.dmi', "icon_state" = "[tail_name]_h")
+				sp_tail.Blend("#[hair_color]", ICON_MULTIPLY)
+				tail.Shift(NORTH,kpcode_tail_offset(mutant_tail))
+				tail.Blend(sp_tail,ICON_OVERLAY)
+			preview_icon.Blend(tail, ICON_OVERLAY)
+
 	preview_icon_front = new(preview_icon, dir = SOUTH)
 	preview_icon_side = new(preview_icon, dir = WEST)
 

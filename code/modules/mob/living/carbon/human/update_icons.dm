@@ -77,6 +77,7 @@ Please contact me on #coderbus IRC. ~Carnie x
 #define HEAD_LAYER				7
 #define HANDCUFF_LAYER			6
 #define LEGCUFF_LAYER			5
+#define TAIL_LAYER				4
 #define L_HAND_LAYER			4
 #define R_HAND_LAYER			3		//Having the two hands seperate seems rather silly, merge them together? It'll allow for code to be reused on mobs with arbitarily many hands
 #define BODY_FRONT_LAYER		2
@@ -166,7 +167,8 @@ Please contact me on #coderbus IRC. ~Carnie x
 		dna.species.handle_mutant_bodyparts(src)
 
 
-/mob/living/carbon/human/proc/update_body()
+//mob/living/carbon/human/proc/update_body()
+/mob/living/carbon/human/update_body()
 	remove_overlay(BODY_LAYER)
 
 	if(dna)
@@ -178,6 +180,51 @@ Please contact me on #coderbus IRC. ~Carnie x
 
 	if(dna)	// didn't want to have a duplicate if(dna) here, but due to the ordering of the code this was the only way
 		dna.species.handle_body(src)
+
+	//Narky tail code
+	remove_overlay(TAIL_LAYER)
+	var/list/t_standing	= list()
+	//var/icon/chk=new/icon('icons/mob/tail.dmi')
+	//var/list/available_states=chk.IconStates()
+
+	var/wing = dna ? dna.mutantwing : null
+	if(wing&&wing!="none"&&!dna.taur)
+		var/image/wing_s = image("icon" = 'icons/mob/wing.dmi', "icon_state" = "[wing]", "layer" = -TAIL_LAYER)
+		wing_s.color = "#" + dna.wingcolor
+		t_standing	+= wing_s
+
+	var/race = dna ? dna.mutantrace() : null
+	if(race&&kpcode_hastail(race) &&!dna.taur) //Temp taur fix
+		t_standing+=generate_colour_icon('icons/mob/tail.dmi',"[kpcode_hastail(race)]",dna.special_color,add_layer=-TAIL_LAYER,offset_y=kpcode_tail_offset(race))
+		/*var/list/standingt = list()
+		standingt += image("icon"='icons/mob/tail.dmi', "icon_state"="[race]", "layer"=-TAIL_LAYER)
+		if(dna.special_color_one)
+			if(available_states.Find("[race]_1"))
+				var/image/standingt_one	= image("icon"='icons/mob/tail.dmi', "icon_state"="[race]_1", "layer"=-TAIL_LAYER)
+				var/new_color = "#" + dna.special_color_one
+				standingt_one.color = new_color
+				standingt += standingt_one
+		overlays_standing[TAIL_LAYER]	= standingt*/
+	else
+		if(!race||race=="human")
+			var/tail = dna ? dna.mutanttail : null
+			if(tail&&kpcode_hastail(tail) &&!dna.taur) //Temp taur fix
+				t_standing+=generate_colour_icon('icons/mob/tail.dmi',"[kpcode_hastail(tail)]",dna.special_color,add_layer=-TAIL_LAYER,offset_y=kpcode_tail_offset(race),human=hair_color)
+				/*var/list/standingt = list()
+				standingt += image("icon"='icons/mob/tail.dmi', "icon_state"="[kpcode_hastail(tail)]", "pixel_y"=kpcode_tail_offset(tail), "layer"=-TAIL_LAYER) //may need a +(pixel_y/2)
+				var/image/standingt_one	= image("icon"='icons/mob/tail.dmi', "icon_state"="[kpcode_hastail(tail)]_1", "pixel_y"=kpcode_tail_offset(tail), "layer"=-TAIL_LAYER)
+				var/new_color = "#" + hair_color
+				standingt_one.color = new_color
+				standingt += standingt_one
+				overlays_standing[TAIL_LAYER]	= standingt*/
+
+	if(dna&&dna.taur)
+		t_standing+=generate_colour_icon('icons/mob/special/taur.dmi',"[kpcode_cantaur(dna.mutantrace())]_tail",dna.special_color,offset_x=-16,add_layer=-TAIL_LAYER)
+
+	if(t_standing.len)
+		overlays_standing[TAIL_LAYER] =t_standing
+
+	apply_overlay(TAIL_LAYER)
 
 /mob/living/carbon/human/update_fire()
 
@@ -653,6 +700,7 @@ Please contact me on #coderbus IRC. ~Carnie x
 #undef HEAD_LAYER
 #undef HANDCUFF_LAYER
 #undef LEGCUFF_LAYER
+#undef TAIL_LAYER
 #undef L_HAND_LAYER
 #undef R_HAND_LAYER
 #undef FIRE_LAYER

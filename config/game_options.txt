@@ -214,7 +214,7 @@ DEFAULT_LAWS 1
 SILICON_MAX_LAW_AMOUNT 12
 
 ## Uncoment to give players the choice of their species before they join the game
-#JOIN_WITH_MUTANT_RACE
+JOIN_WITH_MUTANT_RACE
 
 ## Uncomment to allow certain species to have custom colors
 #MUTANT_COLORS

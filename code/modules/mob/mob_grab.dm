@@ -212,6 +212,9 @@
 			affecting.loc = user
 			attacker.stomach_contents.Add(affecting)
 			qdel(src)
+		if(istype(M,/mob/living))
+			var/mob/living/predator=M
+			predator.vore_initiate(affecting,assailant)
 
 
 /obj/item/weapon/grab/dropped()

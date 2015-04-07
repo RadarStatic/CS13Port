@@ -87,6 +87,17 @@ var/next_mob_id = 0
 	for(var/mob/M in viewers(origin))
 		M.visible_message_inside(message, self_message, blind_message, src)
 
+
+/mob/proc/visible_message_inside(var/message, var/self_message, var/blind_message, var/message_source)
+	var/msg = message
+	if(self_message && src==message_source)
+		msg = self_message
+	src.show_message( msg, 1, blind_message, 2)
+	for(var/mob/M in src)
+		if(M==src)
+			continue
+		M.visible_message_inside(message,self_message,blind_message, message_source)
+
 /mob/visible_message(var/message, var/self_message, var/blind_message)
 	var/list/mob_viewers = list()
 	var/list/possible_viewers = list()

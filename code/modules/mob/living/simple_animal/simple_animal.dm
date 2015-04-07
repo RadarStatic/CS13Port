@@ -98,6 +98,13 @@
 			update_canmove()
 		return 0
 
+	for(var/mob/living/M in stomach_contents)
+		if(M.loc != src)
+			stomach_contents.Remove(M)
+			continue
+	for(var/datum/vore_organ/organ in src.vore_organ_list())
+		organ.digest()
+
 
 	if(health < 1 && stat != DEAD)
 		Die()
@@ -360,6 +367,21 @@
 		if(sharpness)
 			harvest(user, sharpness)
 			return
+
+	if(istype(O, /obj/item/weapon/grab))
+		if(!O:affecting)
+			return
+
+		if(src == O:affecting)
+			O:s_click(O:hud)
+			return
+		if(O:state >= GRAB_AGGRESSIVE)
+			if(istype(O:affecting,/mob/living))
+				var/mob/living/predator=src
+				predator.vore_initiate(O:affecting,O:assailant)
+		return
+
+
 
 	user.do_attack_animation(src)
 	var/damage = 0

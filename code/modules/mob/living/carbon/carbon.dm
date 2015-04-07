@@ -36,6 +36,11 @@
 		. += legcuffed.slowdown
 
 /mob/living/carbon/relaymove(var/mob/user, direction)
+	var/mob/living/prey=user
+	if(prey in src.stomach_contents)
+		var/datum/vore_organ/VO=prey.get_last_organ_in()
+		if(VO)
+			VO.relaymove(prey,direction)
 	if(user in src.stomach_contents)
 		if(prob(40))
 			audible_message("<span class='danger'>You hear something rumbling inside [src]'s stomach...</span>", \

@@ -61,6 +61,7 @@
 	var/eye_stat = null//Living, potentially Carbon
 	var/lastpuke = 0
 	var/unacidable = 0
+//	var/blinded = null
 
 	var/name_archive //For admin things like possession
 

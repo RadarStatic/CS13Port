@@ -60,6 +60,13 @@
 
 	return .
 
+	//Handle organ stuff
+	for(var/mob/living/M in stomach_contents)
+		if(M.loc != src)
+			stomach_contents.Remove(M)
+			continue
+	for(var/datum/vore_organ/organ in src.vore_organ_list())
+		organ.digest()
 
 
 ///////////////
@@ -144,6 +151,22 @@
 /mob/living/carbon/proc/check_breath(datum/gas_mixture/breath)
 	if((status_flags & GODMODE))
 		return
+
+	var/datum/vore_organ/VD=get_last_organ_in()
+
+	if(VD&&VD.digestion_factor)
+		fire_alert = max(fire_alert, 2)
+	if(VD&&VD.tf_factor)
+		fire_alert = max(fire_alert, 1)
+
+	if(!breath || (breath.total_moles() == 0))
+		if(VD&&VD.oxygen&&VD.owner.stat!=2)
+			return
+		adjustOxyLoss(7)
+
+		oxygen_alert = max(oxygen_alert, 1)
+
+		return 0
 
 	//CRIT
 	if(!breath || (breath.total_moles() == 0))
