@@ -21,6 +21,7 @@ var/global/list/special_roles = list( //keep synced with the defines BE_* in set
 
 datum/preferences
 	//doohickeys for savefiles
+	var/ckey = "null"
 	var/path
 	var/default_slot = 1				//Holder so it doesn't default to slot 1, rather the last one used
 	var/max_save_slots = 3
@@ -59,6 +60,25 @@ datum/preferences
 	var/eye_color = "000"				//Eye color
 	var/datum/species/pref_species = new /datum/species/human()	//Mutant race
 	var/mutant_color = "FFF"			//Mutant race skin color
+	var/mutant_tail = "none"			//Narky stuff!
+	var/mutant_wing = "none"
+	var/wingcolor = "FFF"
+	var/special_color[COLOUR_LIST_SIZE]
+	//var/special_color_one = null
+	//var/special_color_two = null
+	var/vore_banned_methods = 0
+	var/vore_extra_bans = 65535
+	var/list/vore_ability = list(
+	"1"=2,
+	"2"=0,
+	"4"=0,
+	"8"=0,
+	"16"=0,
+	"32"=0,
+	"64"=1,
+	"128"=0) //BAAAAD way to do this
+	var/character_size="normal"
+	var/be_taur=0
 
 	var/list/p_cock=list("has"=0,"type"="human","color"="900","sheath"="FFF")
 	var/p_vagina=0
@@ -175,9 +195,16 @@ datum/preferences
 
 				if(config.mutant_races)
 					dat += "<b>Species:</b><BR><a href='?_src_=prefs;preference=species;task=input'>[pref_species.name]</a><BR>"
+					dat += "<b>Human Tail:</b><a href='?_src_=prefs;preference=mutant_tail;task=input'>[mutant_tail]</a><BR>"
+					dat += "<b>Taur:</b><a href='?_src_=prefs;preference=be_taur;task=input'>[be_taur ? "Yes" : "No"]</a>"
+					if(!kpcode_cantaur(pref_species.name))
+						dat += " (not available for [pref_species.name])"
 				else
 					dat += "<b>Species:</b> Human<BR>"
 
+
+				dat += "<b>Size:</b> <a href='?_src_=prefs;preference=character_size;task=input'>[character_size]</a><BR>"
+				dat += "<b>Vore:</b> <a href='?_src_=prefs;preference=vore_panel;task=input'>Panel</a><BR>"
 				dat += "<b>Blood Type:</b> [blood_type]<BR>"
 				dat += "<b>Underwear:</b><BR><a href ='?_src_=prefs;preference=underwear;task=input'>[underwear]</a><BR>"
 				dat += "<b>Undershirt:</b><BR><a href ='?_src_=prefs;preference=undershirt;task=input'>[undershirt]</a><BR>"
@@ -719,13 +746,18 @@ datum/preferences
 
 					if("species")
 
-						var/result = input(user, "Select a species", "Species Selection") as null|anything in roundstart_species
+						var/result = input(user, "Select a species", "Species Selection") as null|anything in kpcode_race_getlist(ckey)
 
 						if(result)
-							var/newtype = roundstart_species[result]
+							var/newtype = species_list[result]
 							pref_species = new newtype()
-							if(!config.mutant_colors || mutant_color == "#000")
-								mutant_color = pref_species.default_color
+							//if(!config.mutant_colors || mutant_color == "#000")
+							//	mutant_color = pref_species.default_color
+
+					if("mutant_tail")
+						var/new_mutant_tail = input(user, "Choose your character's tail for when they are human:", "Character Preference")  as null|anything in mutant_tails
+						if(new_mutant_tail)
+							mutant_tail = new_mutant_tail
 
 					if("mutant_color")
 						if(!config.mutant_colors)
@@ -755,6 +787,19 @@ datum/preferences
 						var/new_backbag = input(user, "Choose your character's style of bag:", "Character Preference")  as null|anything in backbaglist
 						if(new_backbag)
 							backbag = backbaglist.Find(new_backbag)
+
+					if("character_size")
+						var/new_size = input(user, "Choose your character's size:", "Character Preference")  in list("big", "normal", "small", "tiny")
+						if(new_size)
+							if( (new_size=="big" || new_size=="tiny") && !is_whitelisted(ckey))
+								user << "You need to be whitelisted for this size."
+							else
+								character_size=new_size
+
+					if("vore_panel")
+						var/obj/vore_preferences/VP=new()
+						VP.target=src
+						VP.ShowChoices(user)
 			else
 				switch(href_list["preference"])
 					if("publicity")
@@ -869,8 +914,28 @@ datum/preferences
 				character.dna.species = new pref_species.type()
 			else
 				character.dna.species = new /datum/species/human()
-			character.dna.mutant_color = mutant_color
-			character.update_mutcolor()
+			if(mutant_tail != "none" && config.mutant_races)
+				character.dna.mutanttail = mutant_tail
+			if(mutant_wing != "none" && config.mutant_races)
+				character.dna.mutantwing = mutant_wing
+			character.dna.wingcolor=wingcolor
+			if(be_taur)
+				character.dna.taur=1
+			character.dna.special_color = special_color
+			character.dna.cock=p_cock
+			character.dna.vagina=p_vagina
+
+		character.vore_banned_methods=vore_banned_methods
+		character.vore_extra_bans=vore_extra_bans
+		character.vore_ability=vore_ability
+		if(character_size!="normal")
+			if(character_size=="small")
+				character.sizeplay_set(SIZEPLAY_MICRO)
+			else if(character_size=="tiny")
+				character.sizeplay_set(SIZEPLAY_TINY)
+			else
+				character.sizeplay_set(SIZEPLAY_MACRO)
+
 
 		character.gender = gender
 		character.age = age

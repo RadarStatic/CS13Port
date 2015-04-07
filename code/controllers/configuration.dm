@@ -52,6 +52,7 @@
 	var/jobs_have_maint_access = 0 		//Who gets maint access?  See defines above.
 	var/sec_start_brig = 0				//makes sec start in brig or dept sec posts
 	var/narkyjoblist = 0
+	var/narkypaniclist = 0
 
 	var/server
 	var/banappeals
@@ -283,6 +284,12 @@
 					guests_allowed = 0
 				if("usewhitelist")
 					config.usewhitelist = 1
+				if("usewhitelist")
+					config.usewhitelist = 1
+				if("narkyjoblist")
+					config.narkyjoblist=1
+				if("narkypaniclist")
+					config.narkypaniclist=1
 				if("allow_metadata")
 					config.allow_Metadata = 1
 				if("kick_inactive")

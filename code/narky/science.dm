@@ -28,6 +28,7 @@ datum/design/stethoscope
 	build_path = /obj/item/clothing/tie/stethoscope
 	category = list("Medical")
 
+/*
 datum/design/stethoscope_advanced
 	name = "Stethoscope (Advanced)"
 	desc = "An advanced stethoscope that can read micro-vibrations produced by DNA, or possibly something less silly."
@@ -36,4 +37,4 @@ datum/design/stethoscope_advanced
 	build_type = PROTOLATHE
 	materials = list("$metal" = 500)
 	build_path = /obj/item/clothing/tie/stethoscope/advanced
-	category = list("Medical")
+	category = list("Medical")*/

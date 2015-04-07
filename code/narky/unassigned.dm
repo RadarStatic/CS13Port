@@ -150,7 +150,7 @@ var/const/VORE_SIZEDIFF_ANY=5
 	var/global/const/FLAVOUR_TRANSFER=6
 	proc/digest()
 		if(!owner)return 0
-		for(var/mob/living/M in contents)
+		for(var/mob/living/carbon/M in contents)
 			if(!owner.stomach_contents.Find(M))
 				contents.Remove(M)
 				//continue //bad in most languages
@@ -1608,7 +1608,7 @@ datum/objective/vore_opt_escape
 	explanation_text = "Escape on the shuttle or an escape pod alive. For optional security, be smuggled aboard while inside someone. Do not arrive in the brig."
 	dangerrating = 5
 
-datum/objective/vore_opt_escape/check_completion()
+/*datum/objective/vore_opt_escape/check_completion()
 	if(issilicon(owner.current))
 		return 0
 	if(isbrain(owner.current))
@@ -1625,24 +1625,24 @@ datum/objective/vore_opt_escape/check_completion()
 		return 0
 
 	var/area/check_area = location.loc
-	if(istype(check_area, /area/shuttle/escape/centcom))
+	if(istype(check_area, /area/centcom/evac))
 		return 1
-	if(istype(check_area, /area/shuttle/escape_pod1/centcom))
+	if(istype(check_area, /area/centcom/evac))
 		return 1
-	if(istype(check_area, /area/shuttle/escape_pod2/centcom))
+	if(istype(check_area, /area/centcom/evac))
 		return 1
-	if(istype(check_area, /area/shuttle/escape_pod3/centcom))
+	if(istype(check_area, /area/centcom/evac))
 		return 1
-	if(istype(check_area, /area/shuttle/escape_pod4/centcom))
+	if(istype(check_area, /area/centcom/evac))
 		return 1
 	else
-		return 0
+		return 0*/
 
 datum/objective/vore_escape
 	explanation_text = "Escape on the shuttle or an escape pod alive. They are hunting for you and checking containers, so you will need to be inside someone to escape. They will perform full searches in the brig, so avoid it."
 	dangerrating = 5
 
-datum/objective/vore_escape/check_completion()
+/*datum/objective/vore_escape/check_completion()
 	if(issilicon(owner.current))
 		return 0
 	if(isbrain(owner.current))
@@ -1660,18 +1660,18 @@ datum/objective/vore_escape/check_completion()
 		return 0
 
 	var/area/check_area = location.loc
-	if(istype(check_area, /area/shuttle/escape/centcom))
+	if(istype(check_area, /area/centcom/evac))
 		return 1
-	if(istype(check_area, /area/shuttle/escape_pod1/centcom))
+	if(istype(check_area, /area/centcom/evac))
 		return 1
-	if(istype(check_area, /area/shuttle/escape_pod2/centcom))
+	if(istype(check_area, /area/centcom/evac))
 		return 1
-	if(istype(check_area, /area/shuttle/escape_pod3/centcom))
+	if(istype(check_area, /area/centcom/evac))
 		return 1
-	if(istype(check_area, /area/shuttle/escape_pod4/centcom))
+	if(istype(check_area, /area/centcom/evac))
 		return 1
 	else
-		return 0
+		return 0*/
 
 
 
