@@ -554,7 +554,7 @@ What a mess.*/
 							active1.fields["age"] = t1
 					if("species")
 						if(istype(active1, /datum/data/record))
-							var/t1 = input("Select a species", "Species Selection") as null|anything in roundstart_species
+							var/t1 = input("Select a species", "Species Selection") as null|anything in kpcode_race_getlist
 							if(!canUseSecurityRecordsConsole(usr, t1, a1))
 								return
 							active1.fields["species"] = t1
@@ -720,7 +720,7 @@ What a mess.*/
 				if(6)
 					R.fields["m_stat"] = pick("*Insane*", "*Unstable*", "*Watch*", "Stable")
 				if(7)
-					R.fields["species"] = pick(roundstart_species)
+					R.fields["species"] = pick(kpcode_race_getlist)
 				if(8)
 					var/datum/data/record/G = pick(data_core.general)
 					R.fields["photo_front"] = G.fields["photo_front"]

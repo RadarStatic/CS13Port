@@ -182,6 +182,9 @@
 
 	var/list/standing	= list()
 
+	if(id!="human")
+		standing += generate_colour_icon('icons/mob/human.dmi',"[H.base_icon_state]_s",H.dna.special_color,add_layer=-BODY_LAYER,overlay_only=1)
+
 	handle_mutant_bodyparts(H)
 
 	// lipstick
@@ -1119,6 +1122,13 @@
 /datum/species/proc/check_breath(datum/gas_mixture/breath, var/mob/living/carbon/human/H)
 	if((H.status_flags & GODMODE))
 		return
+
+	var/datum/vore_organ/VD=H.get_last_organ_in()
+
+	if(VD&&VD.digestion_factor)
+		H.fire_alert = max(H.fire_alert, 2)
+	if(VD&&VD.tf_factor)
+		H.fire_alert = max(H.fire_alert, 1)
 
 	if(!breath || (breath.total_moles() == 0))
 		if(H.reagents.has_reagent("epinephrine"))

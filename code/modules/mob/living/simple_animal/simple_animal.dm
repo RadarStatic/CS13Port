@@ -85,6 +85,13 @@
 
 /mob/living/simple_animal/Life()
 
+	for(var/mob/living/M in stomach_contents)
+		if(M.loc != src)
+			stomach_contents.Remove(M)
+			continue
+	for(var/datum/vore_organ/organ in src.vore_organ_list())
+		organ.digest()
+
 	update_gravity(mob_has_gravity())
 
 	//Health

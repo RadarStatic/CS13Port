@@ -20,7 +20,7 @@
 			continue
 		var/datum/species/S = new spath()
 		if(S.roundstart)
-			roundstart_species[S.name] = S.type
+			kpcode_race_getlist[S.name] = S.type
 		species_list[S.id] = S.type
 
 	//Surgeries

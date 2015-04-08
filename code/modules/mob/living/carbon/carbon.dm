@@ -36,12 +36,14 @@
 		. += legcuffed.slowdown
 
 /mob/living/carbon/relaymove(var/mob/user, direction)
+	if(!istype(user,/mob/living))//I forgot why I have to check for this.
+		return ..()
 	var/mob/living/prey=user
 	if(prey in src.stomach_contents)
 		var/datum/vore_organ/VO=prey.get_last_organ_in()
 		if(VO)
 			VO.relaymove(prey,direction)
-	if(user in src.stomach_contents)
+	/*if(user in src.stomach_contents)
 		if(prob(40))
 			audible_message("<span class='danger'>You hear something rumbling inside [src]'s stomach...</span>", \
 						 "<span class='danger'>You hear something rumbling.</span>", 4,\
@@ -67,7 +69,7 @@
 					for(var/atom/movable/A in stomach_contents)
 						A.loc = loc
 						stomach_contents.Remove(A)
-					src.gib()
+					src.gib()*/
 
 /mob/living/carbon/gib(var/animation = 1)
 	for(var/mob/M in src)

@@ -198,7 +198,20 @@ datum/preferences
 					dat += "<b>Human Tail:</b><a href='?_src_=prefs;preference=mutant_tail;task=input'>[mutant_tail]</a><BR>"
 					dat += "<b>Taur:</b><a href='?_src_=prefs;preference=be_taur;task=input'>[be_taur ? "Yes" : "No"]</a>"
 					if(!kpcode_cantaur(pref_species.name))
+
 						dat += " (not available for [pref_species.name])"
+					if(special_color[1])
+						dat += "<span style='border:1px solid #161616; background-color: #[special_color[1]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=special_color;which=1;task=input'>Primary</a><BR>"
+					else
+						dat += "<a href='?_src_=prefs;preference=special_color;which=1;task=input'>Primary?</a><BR>"
+					if(special_color[2])
+						dat += "<span style='border:1px solid #161616; background-color: #[special_color[2]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=special_color;which=2;task=input'>Secondary</a><BR>"
+					else
+						dat += "<a href='?_src_=prefs;preference=special_color;which=2;task=input'>Secondary?</a><BR>"
+					if(special_color[3])
+						dat += "<span style='border:1px solid #161616; background-color: #[special_color[3]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=special_color;which=3;task=input'>Tertiary</a><BR>"
+					else
+						dat += "<a href='?_src_=prefs;preference=special_color;which=3;task=input'>Tertiary?</a><BR>"
 				else
 					dat += "<b>Species:</b> Human<BR>"
 
@@ -772,6 +785,16 @@ datum/preferences
 								mutant_color = sanitize_hexcolor(new_mutantcolor)
 							else
 								user << "<span class='danger'>Invalid color. Your color is not bright enough.</span>"
+
+					if("special_color")
+						var/index_tc=href_list["which"]
+						switch(alert("Use a special colour for #[index_tc]?","Character Preference","Yes","No","Cancel"))
+							if("Yes")
+								var/new_color = input(user, "Choose colour #[index_tc]:", "Character Preference") as null|color
+								if(new_color)
+									special_color[text2num(index_tc)] = sanitize_hexcolor(new_color)
+							if("No")
+								special_color[text2num(index_tc)]=null
 
 					if("s_tone")
 						var/new_s_tone = input(user, "Choose your character's skin-tone:", "Character Preference")  as null|anything in skin_tones

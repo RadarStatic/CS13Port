@@ -27,7 +27,6 @@
 	name = "Lizardperson"
 	id = "lizard"
 	say_mod = "hisses"
-	default_color = "00FF00"
 	roundstart = 1
 	specflags = list(MUTCOLORS,EYECOLOR,LIPS)
 	mutant_bodyparts = list("tail", "snout")
@@ -311,3 +310,18 @@
 			message_list.Insert(insertpos, "[pick("BRAINS", "Brains", "Braaaiinnnsss", "BRAAAIIINNSSS")]...")
 
 	return list2text(message_list, " ")
+
+/*
+ Fox
+*/
+
+/datum/species/fox
+	name = "fox"
+	id = "fox"
+	roundstart = 1
+	specflags = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,LIPS)
+	use_skintones = 1
+	tail = 1
+	taur = 2
+	default_color = "FFFFFF"
+	say_mod = "yips"
