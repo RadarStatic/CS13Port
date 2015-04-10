@@ -73,7 +73,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 				if(11)	underwear = "Ladies Kinky"
 				if(12)	underwear = "Tankini"
 				if(13)	underwear = "Nude"
-		if(!(pref_species in species_list))
+		//if(!(pref_species in species_list))
+		if(!(pref_species))
 			pref_species = new /datum/species/human()
 	return
 
@@ -156,14 +157,14 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	//Species
 	var/species_name
 	S["species"]			>> species_name
-	if(config.mutant_races && species_name && (species_name in kpcode_race_getlist))
-		var/newtype = kpcode_race_getlist[species_name]
+	if(config.mutant_races && species_name && (species_name in roundstart_species))
+		var/newtype = roundstart_species[species_name]
 		pref_species = new newtype()
 	else
 		pref_species = new /datum/species/human()
 
-	if(!S["mutant_color"] || S["mutant_color"] == "#000")
-		S["mutant_color"]	<< "#FFF"
+	//if(!S["mutant_color"] || S["mutant_color"] == "#000")
+	//	S["mutant_color"]	<< "#FFF"
 
 	//Character
 	S["OOC_Notes"]			>> metadata

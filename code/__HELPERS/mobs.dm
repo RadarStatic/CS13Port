@@ -75,7 +75,7 @@ var/list/skin_tones = list(
 	)
 
 var/global/list/species_list[0]
-var/global/list/kpcode_race_getlist[0]
+var/global/list/roundstart_species[0]
 
 /proc/age2agedescription(age)
 	switch(age)

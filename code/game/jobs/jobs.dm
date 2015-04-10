@@ -124,4 +124,9 @@ var/list/nonhuman_positions = list(
 
 
 /proc/guest_jobbans(var/job)
+	if(config.narkypaniclist)
+		if((job in engineering_positions) || (job in medical_positions) || (job in science_positions))
+			return 1
+		if(job=="Syndicate")
+			return 1
 	return ((job in command_positions) || (job in nonhuman_positions) || (job in security_positions))
