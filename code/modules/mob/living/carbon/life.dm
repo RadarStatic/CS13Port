@@ -352,6 +352,8 @@
 					if(!(M.status_flags & GODMODE))
 						M.adjustBruteLoss(5)
 					nutrition += 10
+		for(var/datum/vore_organ/organ in src.vore_organ_list())
+			organ.digest()
 
 /mob/living/carbon/proc/handle_regular_status_updates()
 

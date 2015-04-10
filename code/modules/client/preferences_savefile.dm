@@ -73,7 +73,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 				if(11)	underwear = "Ladies Kinky"
 				if(12)	underwear = "Tankini"
 				if(13)	underwear = "Nude"
-		if(!(pref_species in species_list))
+		//if(!(pref_species in species_list))
+		if(!(pref_species))
 			pref_species = new /datum/species/human()
 	return
 
@@ -162,8 +163,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	else
 		pref_species = new /datum/species/human()
 
-	if(!S["mutant_color"] || S["mutant_color"] == "#000")
-		S["mutant_color"]	<< "#FFF"
+	//if(!S["mutant_color"] || S["mutant_color"] == "#000")
+	//	S["mutant_color"]	<< "#FFF"
 
 	//Character
 	S["OOC_Notes"]			>> metadata
@@ -183,6 +184,15 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["socks"]				>> socks
 	S["backbag"]			>> backbag
 	S["mutant_color"]		>> mutant_color
+	S["vore_ability"]		<< vore_ability
+	S["vore_banned_methods"]<< vore_banned_methods
+	S["vore_extra_bans"]	<< vore_extra_bans
+	S["character_size"]		<< character_size
+	S["p_cock"]				<< p_cock
+	S["p_vagina"]			<< p_vagina
+	S["mutant_tail"]		<< mutant_tail
+	S["species"]			<< pref_species.name
+	S["special_color"]		<< special_color
 
 	//Jobs
 	S["userandomjob"]		>> userandomjob
@@ -226,9 +236,21 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	hair_color			= sanitize_hexcolor(hair_color, 3, 0)
 	facial_hair_color			= sanitize_hexcolor(facial_hair_color, 3, 0)
 	eye_color		= sanitize_hexcolor(eye_color, 3, 0)
+	special_color	= sanitize_colour_list(special_color)
 	skin_tone		= sanitize_inlist(skin_tone, skin_tones)
 	backbag			= sanitize_integer(backbag, 1, backbaglist.len, initial(backbag))
 	mutant_color	= sanitize_hexcolor(mutant_color, 3, 0)
+	mutant_tail 	= sanitize_text(mutant_tail, initial(mutant_tail))
+	mutant_wing 	= sanitize_text(mutant_wing, initial(mutant_wing))
+	wingcolor		= sanitize_hexcolor(wingcolor, 3, 0)
+	character_size 	= sanitize_text(character_size, initial(character_size))
+
+	vore_ability=sanitize_vore_list(vore_ability)
+	if(isnull(vore_banned_methods))vore_banned_methods=0
+	if(isnull(vore_extra_bans))vore_extra_bans=65535
+	if(isnull(p_vagina)) p_vagina=gender==FEMALE
+	if(isnull(p_cock))
+		p_cock=list("has"=gender==MALE,"type"="human","color"="900")
 
 	userandomjob	= sanitize_integer(userandomjob, 0, 1, initial(userandomjob))
 	job_civilian_high = sanitize_integer(job_civilian_high, 0, 65535, initial(job_civilian_high))
@@ -270,6 +292,15 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["backbag"]			<< backbag
 	S["species"]			<< pref_species.name
 	S["mutant_color"]		<< mutant_color
+	S["vore_ability"]		<< vore_ability
+	S["vore_banned_methods"]<< vore_banned_methods
+	S["vore_extra_bans"]	<< vore_extra_bans
+	S["character_size"]		<< character_size
+	S["p_cock"]				<< p_cock
+	S["p_vagina"]			<< p_vagina
+	S["mutant_tail"]		<< mutant_tail
+	S["special_color"]		<< special_color
+
 
 	//Jobs
 	S["userandomjob"]		<< userandomjob

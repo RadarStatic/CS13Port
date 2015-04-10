@@ -1,3 +1,6 @@
+//I need to clean up races.dm and species_types.dm - Jay
+
+
 /*
  HUMANS
 */
@@ -8,7 +11,7 @@
 	roundstart = 1
 	specflags = list(EYECOLOR,HAIR,FACEHAIR,LIPS)
 	use_skintones = 1
-
+/*
 /datum/species/human/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.id == "mutationtoxin")
 		H << "<span class='danger'>Your flesh rapidly mutates!</span>"
@@ -17,6 +20,7 @@
 		H.reagents.del_reagent(chem.type)
 		H.faction |= "slime"
 		return 1
+*/
 
 /*
  LIZARDPEOPLE
@@ -30,18 +34,20 @@
 	default_color = "00FF00"
 	roundstart = 1
 	specflags = list(MUTCOLORS,EYECOLOR,LIPS)
-	mutant_bodyparts = list("tail", "snout")
+	//mutant_bodyparts = list("tail", "snout")
 	attack_verb = "slash"
 	attack_sound = 'sound/weapons/slash.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
 	meat = /obj/item/weapon/reagent_containers/food/snacks/meat/human/mutant/lizard
 
+
 /datum/species/lizard/handle_speech(message)
 	// jesus christ why
-	if(copytext(message, 1, 2) != "*")
-		message = replacetext(message, "s", "sss")
+	//if(copytext(message, 1, 2) != "*")
+	//	message = replacetext(message, "s", "sss")
 
 	return message
+
 
 /*
  PLANTPEOPLE
@@ -154,9 +160,11 @@
 	default_color = "00FFFF"
 	darksight = 3
 	invis_sight = SEE_INVISIBLE_LEVEL_ONE
-	specflags = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,NOBLOOD)
-	hair_color = "mutcolor"
+	//specflags = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,NOBLOOD)
+	specflags = list(EYECOLOR,HAIR,NOBLOOD)
+	//hair_color = "mutcolor"
 	hair_alpha = 150
+	roundstart = 1
 	ignored_by = list(/mob/living/carbon/slime)
 	meat = /obj/item/weapon/reagent_containers/food/snacks/meat/human/mutant/slime
 	exotic_blood = /datum/reagent/toxin/slimejelly
@@ -197,7 +205,9 @@
 	default_color = "00FF90"
 	say_mod = "chirps"
 	eyes = "jelleyes"
-	specflags = list(MUTCOLORS,EYECOLOR,NOBLOOD)
+	roundstart = 1
+	//specflags = list(MUTCOLORS,EYECOLOR,NOBLOOD)
+	specflags = list(EYECOLOR,HAIR,NOBLOOD)
 	meat = /obj/item/weapon/reagent_containers/food/snacks/meat/human/mutant/slime
 	exotic_blood = /datum/reagent/toxin/slimejelly
 	var/recently_changed = 1
@@ -281,6 +291,7 @@
 	id = "skeleton"
 	say_mod = "rattles"
 	sexes = 0
+	roundstart = 0
 	meat = /obj/item/weapon/reagent_containers/food/snacks/meat/human/mutant/skeleton
 	specflags = list(NOBREATH,HEATRES,COLDRES,NOBLOOD,RADIMMUNE)
 /*
@@ -293,6 +304,7 @@
 	id = "zombie"
 	say_mod = "moans"
 	sexes = 0
+	roundstart = 0
 	meat = /obj/item/weapon/reagent_containers/food/snacks/meat/human/mutant/zombie
 	specflags = list(NOBREATH,HEATRES,COLDRES,NOBLOOD,RADIMMUNE)
 
@@ -311,3 +323,321 @@
 			message_list.Insert(insertpos, "[pick("BRAINS", "Brains", "Braaaiinnnsss", "BRAAAIIINNSSS")]...")
 
 	return list2text(message_list, " ")
+
+/*
+ Fox
+*/
+
+/datum/species/fox
+	name = "fox"
+	id = "fox"
+	roundstart = 1
+	specflags = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,LIPS)
+	use_skintones = 1
+	tail = 1
+	taur = 1
+	sexes = 1
+
+/*
+ Fennec
+*/
+
+/datum/species/fennec
+	name = "fennec"
+	id = "fennec"
+	roundstart = 1
+	specflags = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,LIPS)
+	use_skintones = 1
+	tail = 1
+	taur = 1
+	sexes = 1
+
+
+/*
+ Tajaran
+*/
+
+/datum/species/tajaran
+	name = "tajaran"
+	id = "tajaran"
+	roundstart = 1
+	specflags = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,LIPS)
+	use_skintones = 1
+	tail = 1
+	taur = 1
+	sexes = 1
+
+/*
+ Lizard
+*/
+
+/datum/species/lizard
+	name = "lizard2"
+	id = "lizard"
+	roundstart = 1
+	specflags = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,LIPS)
+	use_skintones = 1
+	tail = 1
+	taur = 1
+	sexes = 1
+
+/*
+ Panther
+*/
+
+/datum/species/panther
+	name = "panther"
+	id = "panther"
+	roundstart = 1
+	specflags = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,LIPS)
+	use_skintones = 1
+	tail = 1
+	taur = 1
+	sexes = 1
+
+/*
+ Husky
+*/
+
+/datum/species/husky
+	name = "husky"
+	id = "husky"
+	roundstart = 1
+	specflags = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,LIPS)
+	use_skintones = 1
+	tail = 1
+	sexes = 1
+
+/*
+ Dalmatian
+*/
+
+/datum/species/dalmatian
+	name = "dalmatian"
+	id = "dalmatian"
+	roundstart = 1
+	specflags = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,LIPS)
+	use_skintones = 1
+	tail = 1
+	sexes = 1
+
+/*
+ Lab
+*/
+
+/datum/species/lab
+	name = "lab"
+	id = "lab"
+	roundstart = 1
+	specflags = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,LIPS)
+	use_skintones = 1
+	tail = 1
+	taur = 1
+	sexes = 1
+
+/*
+ Shepherd
+*/
+
+/datum/species/shepherd
+	name = "shepherd"
+	id = "shepherd"
+	roundstart = 1
+	specflags = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,LIPS)
+	use_skintones = 1
+	tail = 1
+	taur = 1
+
+
+/*
+ Wolf
+*/
+
+/datum/species/wolf
+	name = "wolf"
+	id = "wolf"
+	roundstart = 1
+	specflags = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,LIPS)
+	use_skintones = 1
+	tail = 1
+	//taur = 2
+	sexes = 1
+
+/*
+ Squirrel
+*/
+
+/datum/species/squirrel
+	name = "squirrel"
+	id = "squirrel"
+	roundstart = 1
+	specflags = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,LIPS)
+	use_skintones = 1
+	tail = 1
+	//taur = 2
+	sexes = 1
+
+/*
+ Otter
+*/
+
+/datum/species/otter
+	name = "otter"
+	id = "otter"
+	roundstart = 1
+	specflags = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,LIPS)
+	use_skintones = 1
+	tail = 1
+	//taur = 1
+	sexes = 1
+
+
+/*
+ Murid
+*/
+
+/datum/species/murid
+	name = "murid"
+	id = "murid"
+	roundstart = 1
+	specflags = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,LIPS)
+	use_skintones = 1
+	tail = 1
+	//taur = 1
+	sexes = 1
+
+/*
+ Leoprid
+*/
+
+/datum/species/leoprid
+	name = "leoprid"
+	id = "leoprid"
+	roundstart = 1
+	specflags = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,LIPS)
+	use_skintones = 1
+	tail = 1
+	//taur = 1
+	sexes = 1
+
+/*
+ Red Panda - to be fixed
+
+
+/datum/species/ailurus
+	name = "red panda"
+	id = "ailurus"
+	roundstart = 1
+	specflags = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,LIPS)
+	use_skintones = 1
+	tail = 1
+	//taur = 1
+	sexes = 1
+
+	*/
+
+/*
+ Pig
+*/
+
+/datum/species/pig
+	name = "pig"
+	id = "pig"
+	roundstart = 1
+	specflags = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,LIPS)
+	use_skintones = 1
+	tail = 1
+	//taur = 1
+	sexes = 1
+
+/*
+ Shark
+*/
+
+/datum/species/shark
+	name = "shark"
+	id = "shark"
+	roundstart = 1
+	specflags = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,LIPS)
+	use_skintones = 1
+	tail = 1
+	//taur = 1
+	sexes = 1
+
+/*
+ Hawk
+*/
+
+/datum/species/hawk
+	name = "hawk"
+	id = "hawk"
+	roundstart = 1
+	specflags = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,LIPS)
+	use_skintones = 1
+	tail = 1
+	//taur = 1
+	sexes = 1
+
+
+/*
+ Slime
+*/
+
+/*/datum/species/slime
+	name = "slime"
+	id = "slime"
+	roundstart = 1
+	specflags = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,LIPS)
+	use_skintones = 1
+	tail = 1
+	taur = 1
+	sexes = 1
+	default_color = "FFFFFF"
+
+/*
+ Jelly
+*/
+
+/datum/species/jelly
+	name = "jelly"
+	id = "jelly"
+	roundstart = 1
+	specflags = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,LIPS)
+	use_skintones = 1
+	tail = 1
+	taur = 1
+	sexes = 1
+	default_color = "FFFFFF"
+
+/*
+ Plant
+*/
+
+/datum/species/plant
+	name = "plant"
+	id = "plant"
+	roundstart = 1
+	specflags = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,LIPS)
+	use_skintones = 1
+	tail = 1
+	sexes = 1
+	default_color = "FFFFFF"
+	*/
+
+/*
+ Alien
+*/
+
+/datum/species/alien
+	name = "alien"
+	id = "alien"
+	roundstart = 1
+	specflags = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,LIPS)
+	use_skintones = 1
+	tail = 1
+	sexes = 1
+	default_color = "FFFFFF"
+
+
+
+
