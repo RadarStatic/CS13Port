@@ -210,7 +210,7 @@
 	return
 
 /mob/living/carbon/monkey/IsAdvancedToolUser()//Unless its monkey mode monkeys cant use advanced tools
-	return 0
+	return 1
 
 /mob/living/carbon/monkey/canBeHandcuffed()
 	return 1
