@@ -78,7 +78,7 @@ datum/reagent/formaldehyde/on_mob_life(var/mob/living/M as mob)
 datum/reagent/venom
 	name = "Venom"
 	id = "venom"
-	description = "Scaling TOX and BRUTE damage with dose. 25% chance to decay into 5-10 histamine."
+	description = "Scaling TOX and BRUTE damage with dose. decays into 3-5 units of histamines."
 	reagent_state = LIQUID
 	color = "#CF3600" // rgb: 207, 54, 0
 	metabolization_rate = 0.2
@@ -86,9 +86,8 @@ datum/reagent/venom/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
 	M.adjustToxLoss((0.1*volume)*REM)
 	M.adjustBruteLoss((0.1*volume)*REM)
-	if(prob(25))
-		M.reagents.add_reagent("histamine",pick(5,10))
-		M.reagents.remove_reagent("venom",1)
+	M.reagents.add_reagent("histamine",pick(3,5))
+	M.reagents.remove_reagent("venom",1)
 	..()
 	return
 
@@ -122,7 +121,7 @@ datum/reagent/neurotoxin2/on_mob_life(var/mob/living/M as mob)
 datum/reagent/cyanide
 	name = "Cyanide"
 	id = "cyanide"
-	description = "+1.5 TOX, 10% chance of +1 LOSEBREATH, 8% chance of stun and extra +2 TOX."
+	description = "+1.5 TOX, 10% chance of +1 LOSEBREATH, 8% chance of feeling very weak and an extra +2 TOX."
 	reagent_state = LIQUID
 	color = "#CF3600" // rgb: 207, 54, 0
 	metabolization_rate = 0.1
@@ -134,7 +133,7 @@ datum/reagent/cyanide/on_mob_life(var/mob/living/M as mob)
 		M.losebreath += 1
 	if(prob(8))
 		M << "You feel horrendously weak!"
-		M.Stun(2)
+		M.Weaken(2)
 		M.adjustToxLoss(2*REM)
 	..()
 	return
@@ -150,7 +149,7 @@ datum/reagent/cyanide/on_mob_life(var/mob/living/M as mob)
 /datum/reagent/questionmark // food poisoning
 	name = "Bad Food"
 	id = "????"
-	description = "????"
+	description = "A good suggestion not to eat this."
 	reagent_state = LIQUID
 	color = "#CF3600" // rgb: 207, 54, 0
 	metabolization_rate = 0.2

@@ -11,7 +11,7 @@ datum/reagent/nicotine
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 35
-	addiction_threshold = 30
+	addiction_threshold = 20
 
 datum/reagent/nicotine/on_mob_life(var/mob/living/M as mob)
 	if(!M) M = holder.my_atom
@@ -25,16 +25,15 @@ datum/reagent/nicotine/on_mob_life(var/mob/living/M as mob)
 
 datum/reagent/nicotine/overdose_process(var/mob/living/M as mob)
 	if(prob(20))
-		M << "You feel like you smoked too much."
-	M.adjustToxLoss(1*REM)
-	M.adjustOxyLoss(1*REM)
+		M << "You feel like you smoked way too much."
+	M.adjustOxyLoss(2*REM)
 	..()
 	return
 
 datum/reagent/crank
 	name = "Crank"
 	id = "crank"
-	description = "2x stun reduction per cycle. Warms you up, makes you jittery as hell."
+	description = "2x stun reduction per cycle. Warms you up, makes you jittery as hell, OVERDOSES AT 20, getting ADDICTED is half."
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 20
@@ -75,6 +74,7 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 	M.adjustBruteLoss(rand(1,10)*REM)
 	..()
 	return
+
 /datum/chemical_reaction/crank
 	name = "Crank"
 	id = "crank"
@@ -87,7 +87,7 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 /datum/reagent/krokodil
 	name = "Krokodil"
 	id = "krokodil"
-	description = "Cools and calms you down, occasional BRAIN and TOX damage."
+	description = "Cools and calms you down, occasional BRAIN and TOX damage, EXTREMELY deadly ADDICTION at 15, OVERDOSE at 20."
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 20
@@ -144,7 +144,7 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 /datum/reagent/methamphetamine
 	name = "Methamphetamine"
 	id = "methamphetamine"
-	description = "3x stun reduction per cycle, significant stamina regeneration buff, makes you really jittery, dramatically increases movement speed."
+	description = "3x stun reduction per cycle, significant stamina regeneration buff, and makes you GOTTA GO FAST, OVERDOSE at 20, ADDICTION at half"
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 20
@@ -298,7 +298,7 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 /datum/reagent/bath_salts
 	name = "Bath Salts"
 	id = "bath_salts"
-	description = "Makes you nearly impervious to stuns and grants a stamina regeneration buff, but you will be a nearly uncontrollable tramp-bearded raving lunatic."
+	description = "Makes you nearly impervious to stuns and grants a stamina regeneration buff, but you will be a nearly uncontrollable tramp-bearded raving lunatic, ADDICTION and OVERDOSES similar to the other drugs."
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 20
@@ -404,7 +404,7 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 /datum/reagent/aranesp
 	name = "Aranesp"
 	id = "aranesp"
-	description = "Volatile."
+	description = "A very dangerous drug that makes you lose stamina damage at large amounts."
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 
@@ -445,7 +445,7 @@ datum/reagent/crank/addiction_act_stage4(var/mob/living/M as mob)
 datum/reagent/hotline
 	name = "Hotline"
 	id = "hotline"
-	description = "It isn't just wrong. It's dead wrong."
+	description = "It isn't just wrong. It's dead wrong. Lower ADDICTION and OVERDOSE limit than most drugs."
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 15
