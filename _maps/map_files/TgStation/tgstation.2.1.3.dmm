@@ -1307,7 +1307,7 @@
 "azg" = (/turf/simulated/floor/plasteel{icon_state = "bluecorner"},/area/hallway/primary/fore)
 "azh" = (/obj/machinery/door/airlock{id_tag = "Dorm2"; name = "Dorm 2"},/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{dir = 4},/turf/simulated/floor/plasteel,/area/crew_quarters/sleep)
 "azi" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{tag = "icon-manifold-r-f (EAST)"; dir = 4},/turf/simulated/floor/plasteel{icon_state = "neutralcorner"; dir = 2},/area/crew_quarters/sleep)
-"azj" = (/obj/machinery/atmospherics/unary/vent_pump{on = 1},/turf/simulated/floor/plasteel{icon_state = "neutral"},/area/crew_quarters/sleep)
+"azj" = (/obj/machinery/atmospherics/unary/vent_pump{on = 1},/obj/machinery/vending/autodrobe,/turf/simulated/floor/plasteel{icon_state = "neutral"},/area/crew_quarters/sleep)
 "azk" = (/obj/machinery/light_switch{pixel_y = -25},/turf/simulated/floor/plasteel{icon_state = "neutral"},/area/crew_quarters/sleep)
 "azl" = (/obj/item/device/radio/intercom{name = "Station Intercom (General)"; pixel_y = -29},/turf/simulated/floor/plasteel{icon_state = "neutral"},/area/crew_quarters/sleep)
 "azm" = (/obj/structure/closet/wardrobe/pjs,/turf/simulated/floor/plasteel{icon_state = "neutral"},/area/crew_quarters/sleep)
