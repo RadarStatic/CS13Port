@@ -169,10 +169,10 @@ datum/reagent/omnizine/on_mob_life(var/mob/living/M as mob)
 	return
 
 datum/reagent/omnizine/overdose_process(var/mob/living/M as mob)
-	M.adjustToxLoss(1.5*REM)
-	M.adjustOxyLoss(1.5*REM)
-	M.adjustBruteLoss(1.5*REM)
-	M.adjustFireLoss(1.5*REM)
+	M.adjustToxLoss(2*REM)
+	M.adjustOxyLoss(2*REM)
+	M.adjustBruteLoss(2*REM)
+	M.adjustFireLoss(2*REM)
 	..()
 	return
 
