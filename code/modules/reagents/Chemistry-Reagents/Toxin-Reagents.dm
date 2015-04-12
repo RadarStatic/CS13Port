@@ -49,7 +49,7 @@ datum/reagent/toxin/mutagen/reaction_mob(var/mob/living/carbon/M, var/method=TOU
 
 datum/reagent/toxin/mutagen/on_mob_life(var/mob/living/carbon/M)
 	if(istype(M))
-		M.apply_effect(5,IRRADIATE,0)
+		M.apply_effect(2,IRRADIATE,0)
 	..()
 	return
 
@@ -108,7 +108,7 @@ datum/reagent/toxin/lexorin/on_mob_life(var/mob/living/M as mob)
 datum/reagent/toxin/slimejelly
 	name = "Slime Jelly"
 	id = "slimejelly"
-	description = "A gooey semi-liquid produced from one of the deadliest lifeforms in existence. SO REAL."
+	description = "An EXTREMELY poisonous reagent that originates from slimes, DO NOT EAT."
 	color = "#801E28" // rgb: 128, 30, 40
 	toxpwr = 0
 
@@ -139,7 +139,7 @@ datum/reagent/toxin/carpotoxin
 	id = "carpotoxin"
 	description = "A deadly neurotoxin produced by the dreaded spess carp."
 	color = "#003333" // rgb: 0, 51, 51
-	toxpwr = 2
+	toxpwr = 2.5
 
 datum/reagent/toxin/zombiepowder
 	name = "Zombie Powder"
@@ -255,7 +255,6 @@ datum/reagent/toxin/chloralhydrate
 	reagent_state = SOLID
 	color = "#000067" // rgb: 0, 0, 103
 	toxpwr = 0
-	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 
 datum/reagent/toxin/chloralhydrate/on_mob_life(var/mob/living/M as mob)
 	if(!data)
